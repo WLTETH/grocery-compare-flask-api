@@ -25,7 +25,7 @@ def search_product():
 
     if data.get("pnp") == "true":
         products += get_pnp_product_codes(data, product_name, limit)
-    if data.get("woolworths"):
+    if data.get("woolworths") == "true":
         products += get_woolworths_product_codes(data, product_name, limit)
     if data.get("checkers") == "true":
         products += get_checkers_product_codes(data, product_name, limit)
@@ -96,9 +96,7 @@ def get_woolworths_product_codes(data, product_name, limit):
         return result
     except Exception as e:
         print(f"Error in search_product: {str(e)}")
-        return jsonify(
-            {"success": False, "error": f"Failed to search product: {str(e)}"}
-        ), 500
+        return []
 
 
 def get_checkers_product_codes(data, product_name, limit):
@@ -182,9 +180,7 @@ def get_checkers_product_codes(data, product_name, limit):
         return result
     except Exception as e:
         print(f"Error in search_product: {str(e)}")
-        return jsonify(
-            {"success": False, "error": f"Failed to search product: {str(e)}"}
-        ), 500
+        return []
 
 
 def add_pnp_barcodes(products):
@@ -317,9 +313,7 @@ def get_pnp_product_codes(data, product_name, limit):
         return add_pnp_barcodes(result)
     except Exception as e:
         print(f"Error in search_product: {str(e)}")
-        return jsonify(
-            {"success": False, "error": f"Failed to search product: {str(e)}"}
-        ), 500
+        return []
 
 
 @app.route("/api/cache", methods=["POST"])
